@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
+use App\Photo;
 use App\Role;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -37,13 +39,26 @@ class AdminUserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function store(UserCreateRequest $request)
     {
-//        return $request->all();
 
-        User::create($request->all());
+
+        $input = $request->all();
+        $input['password'] = bcrypt($request->password);
+
+        if($file = $request->file('file')) {
+
+            $name = Carbon::now()->format('Y_m_d_H_i_s') . '_' . $file->getClientOriginalName();
+            $file->move('images', $name);
+
+            $photo = Photo::create(['file' => $name]);
+
+            $input['photo_id'] = $photo->id;
+        }
+
+        User::create($input);
 
         return redirect('/admin/users');
 
