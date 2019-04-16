@@ -1,1 +1,38 @@
-<h1>Hello World</h1>
+@extends('layouts.admin')
+
+
+
+@section('content')
+
+<h1>Users</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if($users)
+        @foreach($users as $u)
+        <tr>
+            <td>{{$u->id}}</td>
+            <td>{{$u->name}}</td>
+            <td>{{$u->email}}</td>
+            <td>{{$u->role->name}}</td>
+            <td>{{$u->is_active == 0 ? 'Inactive' : 'Active'}}</td>
+            <td>{{$u->created_at->diffForHumans()}}</td>
+            <td>{{$u->updated_at->diffForHumans()}}</td>
+        </tr>
+        @endforeach
+    @endif
+    </tbody>
+</table>
+
+@endsection
