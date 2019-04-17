@@ -8,6 +8,7 @@ use App\Role;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminUserController extends Controller
 {
@@ -44,7 +45,6 @@ class AdminUserController extends Controller
     public function store(UserCreateRequest $request)
     {
 
-
         $input = $request->all();
         $input['password'] = bcrypt($request->password);
 
@@ -59,6 +59,8 @@ class AdminUserController extends Controller
         }
 
         User::create($input);
+
+        Session::flash('actionResult', 'The user has been created');
 
         return redirect('/admin/users');
 
@@ -116,7 +118,7 @@ class AdminUserController extends Controller
 
         $user->update($input);
 
-
+        Session::flash('actionResult', 'The user has been updated');
 
         return redirect('admin/users');
 
@@ -130,6 +132,16 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        unlink(public_path() . $user->photo->file);
+
+        $user->delete();
+
+        Session::flash('actionResult', 'The user has been deleted');
+
+
+
+        return redirect('admin/users');
     }
 }

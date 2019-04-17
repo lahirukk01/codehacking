@@ -4,6 +4,10 @@
 
 @section('content')
 
+    @if(Session::has('actionResult'))
+    <p class="bg-success">{{session('actionResult')}}</p>
+    @endif
+
 <h1>Users</h1>
 
 <table class="table table-striped">
