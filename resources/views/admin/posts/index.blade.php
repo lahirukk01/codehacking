@@ -24,7 +24,7 @@
             <tr>
                 <td>{{$p->id}}</td>
                 <td>{{$p->user->name}}</td>
-                <td>{{$p->category ? $p->category->name : 0}}</td>
+                <td>{{$p->category ? $p->category->name : 'Not Categorised'}}</td>
                 <td><img height="100px" src="{{$p->photo ? $p->photo->file : 'http://placehold.it/100x100'}}" alt=""></td>
                 <td>{{$p->title}}</td>
                 <td>{{$p->body}}</td>
