@@ -68,7 +68,9 @@ class AdminPostController extends Controller
      */
     public function show($id)
     {
-        //
+        $comments = Post::findOrFail($id)->comments;
+
+        return view('admin.comments.show', compact('comments'));
     }
 
     /**
@@ -103,9 +105,11 @@ class AdminPostController extends Controller
 
             $input['photo_id'] = Photo::create(['file' => $name])->id;
 
-            unlink(public_path($post->photo->file));
+            if($post->photo) {
+                unlink(public_path($post->photo->file));
+                $post->photo->delete();
+            }
 
-            $post->photo->delete();
         }
 
         $post->update($input);
@@ -130,5 +134,12 @@ class AdminPostController extends Controller
         Session::flash('actionResult', 'Post deleted successfully');
 
         return redirect('/admin/posts');
+    }
+
+    public function post($id) {
+
+        $post = Post::findOrFail($id);
+        $comments = $post->comments;
+        return view('post', compact('post', 'comments'));
     }
 }

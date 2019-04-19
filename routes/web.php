@@ -15,15 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/post/{id}', 'AdminPostController@post')->name('home.post');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+//Route::resource('/admin/users', 'AdminUserController');
+
 Route::group(['middleware' => 'admin'], function () {
     Route::resource('/admin/users', 'AdminUserController');
     Route::resource('/admin/posts', 'AdminPostController');
     Route::resource('/admin/categories', 'AdminCategoryController');
+    Route::resource('/admin/media', 'AdminMediaController');
+
+    Route::resource('/admin/comments', 'PostCommentController');
+    Route::resource('/admin/comments/replies', 'CommentReplyController');
 });
 
 
