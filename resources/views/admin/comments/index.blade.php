@@ -26,7 +26,7 @@
                 <td>{{$c->author}}</td>
                 <td>{{$c->email}}</td>
                 <td>{{$c->body}}</td>
-                <td><a href="{{route('home.post', $c->post->id)}}">View</a></td>
+                <td><a href="{{route('home.post', $c->post->slug)}}">View</a></td>
                 <td><a href="{{route('replies.show', $c->id)}}">View</a></td>
                 <td>
                 @if($c->is_active == 0)

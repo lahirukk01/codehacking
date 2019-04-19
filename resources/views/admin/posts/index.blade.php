@@ -17,7 +17,8 @@
                 <th>Photo</th>
                 <th>Title</th>
                 <th>Body</th>
-                <th>Comments</th>
+                <th>View Post</th>
+                <th>View Comments</th>
                 <th>Create At</th>
                 <th>Updated At</th>
             </tr>
@@ -32,7 +33,8 @@
                 <td><img height="100px" src="{{$p->photo ? $p->photo->file : 'http://placehold.it/100x100'}}" alt=""></td>
                 <td><a href="{{route('posts.edit', $p->id)}}">{{$p->title}}</a></td>
                 <td>{{$p->body}}</td>
-                <td><a href="{{route('posts.show', $p->id)}}">View Comments</a></td>
+                <td><a href="{{route('home.post', $p->slug)}}">View</a></td>
+                <td><a href="{{route('posts.show', $p->id)}}">View</a></td>
                 <td>{{$p->created_at->diffForhumans()}}</td>
                 <td>{{$p->updated_at->diffForhumans()}}</td>
             </tr>
@@ -40,5 +42,11 @@
         @endif
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-4">
+            {{$posts->links()}}
+        </div>
+    </div>
 
 @endsection

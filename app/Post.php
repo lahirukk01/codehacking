@@ -3,11 +3,25 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
 class Post extends Model
 {
+    use Sluggable;
+    use SluggableScopeHelpers;
+
     protected $fillable = ['title', 'body', 'category_id', 'photo_id'];
 
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
 
     public function category() {
