@@ -15,14 +15,16 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->index()->unsigned()->nullable();
+            $table->bigInteger('user_id')->index()->unsigned();
             $table->integer('category_id')->index()->unsigned();
             $table->integer('photo_id')->index()->unsigned();
             $table->string('title');
             $table->text('body');
             $table->timestamps();
 
-//            $table->engine = 'InnoDB';
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
 
         });
     }

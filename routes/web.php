@@ -39,3 +39,10 @@ Route::group(['middleware' => 'admin'], function () {
 Route::get('/admin', function () {
     return view('admin.index');
 });
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::post('/comment/reply', 'CommentReplyController@storeReply');
+
+});

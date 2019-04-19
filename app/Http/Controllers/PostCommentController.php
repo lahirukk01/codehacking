@@ -40,11 +40,10 @@ class PostCommentController extends Controller
         $user = Auth::user();
 
         $data = [
-            'author' => $user->name,
-            'email' => $user->email,
+            'user_id' => $user->id,
             'post_id' => $request->post_id,
             'body' => $request->body,
-            'is_active' => $user->is_active
+            'is_active' => 1
         ];
 
         Comment::create($data);

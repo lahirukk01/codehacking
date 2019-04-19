@@ -16,14 +16,17 @@ class CreateCommentRepliesTable extends Migration
         Schema::create('comment_replies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('comment_id')->unsigned();
-            $table->boolean('is_active')->default(0);
-            $table->string('author')->nullable();
-            $table->string('email')->nullable();
+            $table->bigInteger('user_id')->unsigned();
+            $table->boolean('is_active')->default(1);
             $table->text('body')->nullable();
             $table->timestamps();
 
             $table->foreign('comment_id')
                 ->references('id')->on('comments')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
                 ->onDelete('cascade');
         });
     }

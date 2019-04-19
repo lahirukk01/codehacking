@@ -16,14 +16,17 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('post_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->boolean('is_active')->default(0);
-            $table->string('author')->nullable();
-            $table->string('email')->nullable();
             $table->text('body')->nullable();
             $table->timestamps();
 
             $table->foreign('post_id')
                 ->references('id')->on('posts')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
                 ->onDelete('cascade');
         });
     }
