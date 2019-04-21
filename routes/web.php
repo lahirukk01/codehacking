@@ -11,20 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FrontController@index');
 
-Route::get('/post/{id}', 'AdminPostController@post')->name('home.post');
+Route::get('/post/{id}', 'FrontController@post')->name('home.post');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 //Route::resource('/admin/users', 'AdminUserController');
 
 Route::group(['middleware' => 'admin'], function () {
+
+    Route::get('/admin', 'AdminController@index');
+
     Route::resource('/admin/users', 'AdminUserController');
     Route::resource('/admin/posts', 'AdminPostController');
     Route::resource('/admin/categories', 'AdminCategoryController');
@@ -32,13 +33,10 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::resource('/admin/comments', 'PostCommentController');
     Route::resource('/admin/comments/replies', 'CommentReplyController');
+
+    Route::delete('/admin/bulkMediaDelete', 'AdminMediaController@bulkMediaDelete')->name('media.bulkMediaDelete');
 });
 
-
-
-Route::get('/admin', function () {
-    return view('admin.index');
-});
 
 
 Route::group(['middleware' => 'auth'], function () {

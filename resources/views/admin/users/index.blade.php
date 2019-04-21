@@ -33,8 +33,8 @@
             <td>{{$u->email}}</td>
             <td>{{$u->role->name}}</td>
             <td>{{$u->is_active == 0 ? 'Inactive' : 'Active'}}</td>
-            <td>{{$u->created_at->diffForHumans()}}</td>
-            <td>{{$u->updated_at->diffForHumans()}}</td>
+            <td>{{$u->created_at ? $u->created_at->diffForHumans() : null}}</td>
+            <td>{{$u->updated_at ? $u->updated_at->diffForHumans() : null}}</td>
         </tr>
         @endforeach
     @endif

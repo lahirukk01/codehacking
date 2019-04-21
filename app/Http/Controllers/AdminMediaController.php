@@ -47,4 +47,13 @@ class AdminMediaController extends Controller
         Photo::create(['file' => $name]);
 
     }
+
+    public function bulkMediaDelete(Request $request) {
+
+        if(!empty($request->mediaCheckboxArray)) {
+            Photo::whereIn('id', $request->mediaCheckboxArray)->delete();
+        }
+
+        return redirect()->back();
+    }
 }

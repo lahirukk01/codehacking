@@ -15,7 +15,7 @@
 
         <div class="form-group">
             {!! Form::label('body', 'Description') !!}
-            {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+            {!! Form::textarea('body', null, ['class' => 'form-control', 'id' => 'editor']) !!}
         </div>
 
         <div class="form-group">
@@ -32,6 +32,8 @@
         {!! Form::close() !!}
 
     </div>
+
+    @include('includes.ckeditor')
 
     <div class="row">
     @include('includes.form_errors')

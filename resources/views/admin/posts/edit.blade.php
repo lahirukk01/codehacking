@@ -40,6 +40,7 @@
             {!! Form::submit('Delete Post', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
 
+            @include('includes.ckeditor')
         </div>
     </div>
 
